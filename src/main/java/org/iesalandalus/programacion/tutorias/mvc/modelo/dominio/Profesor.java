@@ -8,13 +8,13 @@ public class Profesor {
 	private static final String ER_DNI = "([0-9]{8})([A-Za-z])";
 	private static final String ER_CORREO = "[(\\w\\.)+|(\\w)+]+@\\w+\\.\\w{2,3}";
 	private String nombre, dni, correo;
-	
+
 	public Profesor(String nombre, String dni, String correo) {
 		setNombre(nombre);
 		setDni(dni);
 		setCorreo(correo);
 	}
-	
+
 	public Profesor(Profesor profesor) {
 		if (profesor == null) {
 			throw new NullPointerException("ERROR: No es posible copiar un profesor nulo.");
@@ -22,7 +22,7 @@ public class Profesor {
 		setNombre(profesor.nombre);
 		setDni(profesor.dni);
 		setCorreo(profesor.correo);
-		
+
 	}
 
 	public String getNombre() {
@@ -39,7 +39,7 @@ public class Profesor {
 		}
 		this.nombre = formateaNombre(nombre);
 	}
-	
+
 	private String formateaNombre(String nombre) {
 		nombre = nombre.replaceAll("( )+", " ");
 		nombre = nombre.trim();
@@ -75,7 +75,7 @@ public class Profesor {
 
 		this.dni = dni;
 	}
-	
+
 	private boolean comprobarLetraDni(String dni) {
 		boolean esCorrecto;
 		esCorrecto = false;
@@ -100,7 +100,7 @@ public class Profesor {
 		return esCorrecto;
 
 	}
-	
+
 	public String getCorreo() {
 		return correo;
 	}
@@ -114,11 +114,11 @@ public class Profesor {
 		}
 		this.correo = correo;
 	}
-	
+
 	public static Profesor getProfesorFicticio(String dni) {
-		
+
 		return new Profesor("Nombre Ficticio", dni, "correo@ficticio.com");
-		
+
 	}
 
 	@Override
@@ -145,8 +145,7 @@ public class Profesor {
 			return false;
 		return true;
 	}
-	
-	
+
 	private String getIniciales() {
 
 		String iniciales = "";
@@ -162,13 +161,9 @@ public class Profesor {
 
 	@Override
 	public String toString() {
-		String mensaje = String.format("nombre=%s (%s), DNI=%s, correo=%s", getNombre(), getIniciales(),
-				getDni(), getCorreo());
+		String mensaje = String.format("nombre=%s (%s), DNI=%s, correo=%s", getNombre(), getIniciales(), getDni(),
+				getCorreo());
 		return mensaje;
 	}
-	
-	
 
-	
-	
 }
