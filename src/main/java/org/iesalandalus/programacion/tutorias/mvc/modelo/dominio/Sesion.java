@@ -126,8 +126,8 @@ public class Sesion {
 		if (tutoria == null) {
 			throw new NullPointerException("ERROR: La tutoría no puede ser nula.");
 		}
-		tutoria = new Tutoria(tutoria);
-		this.tutoria = tutoria;
+		
+		this.tutoria = new Tutoria(tutoria);
 	}
 
 	@Override
