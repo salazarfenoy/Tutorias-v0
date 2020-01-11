@@ -45,8 +45,8 @@ public class Tutorias {
 	}
 
 	private Tutoria[] copiaProfundaTutorias() {
-		Tutoria[] copiaTutorias = new Tutoria[tamano];
-		for (int i = 0; i < tamano; i++) {
+		Tutoria[] copiaTutorias = new Tutoria[coleccionTutorias.length];
+		for (int i = 0; i < coleccionTutorias.length && coleccionTutorias[i]!=null; i++) {
 			copiaTutorias[i] = new Tutoria(coleccionTutorias[i]);
 		}
 
@@ -117,10 +117,12 @@ public class Tutorias {
 	}
 
 	public Tutoria[] get(Profesor profesor) {
+		int j=0;
 		Tutoria[] copiaTutoriasProfesor = new Tutoria[tamano];
 		for (int i = 0; i < tamano; i++) {
 			if (coleccionTutorias[i].getProfesor().equals(profesor)) {
-				copiaTutoriasProfesor[i] = new Tutoria(coleccionTutorias[i]);
+				copiaTutoriasProfesor[j] = new Tutoria(coleccionTutorias[i]);
+				j++;
 			}
 		}
 		return copiaTutoriasProfesor;

@@ -39,12 +39,13 @@ public class Cita {
 					"ERROR: La hora debe estar comprendida entre la hora de inicio y fin de la sesión.");
 		}
 
-		if (hora.getMinute() % sesion.getMinutosDuracion() != 0) {
+	if (hora.getMinute() >= sesion.getMinutosDuracion() && hora.getMinute() % sesion.getMinutosDuracion() != 0) {
 
-			throw new IllegalArgumentException(
-					"ERROR: La hora debe comenzar en un múltiplo de los minutos de duración.");
+		throw new IllegalArgumentException(
+				"ERROR: La hora debe comenzar en un múltiplo de los minutos de duración.");
 
-		}
+	}
+
 
 		this.hora = hora;
 	}

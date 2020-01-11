@@ -44,8 +44,8 @@ public class Profesores {
 	}
 
 	private Profesor[] copiaProfundaProfesores() {
-		Profesor[] copiaProfesores = new Profesor[tamano];
-		for (int i = 0; i < tamano; i++) {
+		Profesor[] copiaProfesores = new Profesor[coleccionProfesores.length];
+		for (int i = 0; i < coleccionProfesores.length && coleccionProfesores[i]!=null; i++) {
 			copiaProfesores[i] = new Profesor(coleccionProfesores[i]);
 		}
 

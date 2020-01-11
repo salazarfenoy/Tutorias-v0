@@ -44,8 +44,8 @@ public class Sesiones {
 	}
 
 	private Sesion[] copiaProfundaSesiones() {
-		Sesion[] copiaSesiones = new Sesion[tamano];
-		for (int i = 0; i < tamano; i++) {
+		Sesion[] copiaSesiones = new Sesion[coleccionSesiones.length];
+		for (int i = 0; i < coleccionSesiones.length && coleccionSesiones[i]!=null; i++) {
 			copiaSesiones[i] = new Sesion(coleccionSesiones[i]);
 		}
 
@@ -116,10 +116,12 @@ public class Sesiones {
 	}
 
 	public Sesion[] get(Tutoria tutoria) {
+		int j=0;
 		Sesion[] copiaSesionesTutoria = new Sesion[tamano];
 		for (int i = 0; i < tamano; i++) {
 			if (coleccionSesiones[i].getTutoria().equals(tutoria)) {
-				copiaSesionesTutoria[i] = new Sesion(coleccionSesiones[i]);
+				copiaSesionesTutoria[j] = new Sesion(coleccionSesiones[i]);
+				j++;
 			}
 		}
 		return copiaSesionesTutoria;
