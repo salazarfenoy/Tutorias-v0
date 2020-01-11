@@ -10,7 +10,9 @@ public class Alumno {
 	public Alumno(String nombre, String correo) {
 		setNombre(nombre);
 		setCorreo(correo);
+		incrementaUltimoIdentificador();
 		setExpediente(expediente);
+
 	}
 
 	public Alumno(Alumno alumno) {
@@ -24,7 +26,6 @@ public class Alumno {
 
 	public static Alumno getAlumnoFicticio(String correo) {
 
-		
 		return new Alumno("Nombre Ficticio", correo);
 
 	}
@@ -81,7 +82,6 @@ public class Alumno {
 	}
 
 	private void setExpediente(String expediente) {
-		incrementaUltimoIdentificador();
 		StringBuilder expedienteAsignado = new StringBuilder(PREFIJO_EXPEDIENTE);
 		expedienteAsignado.append(getIniciales() + "_");
 		expedienteAsignado.append(ultimoIdentificador);
