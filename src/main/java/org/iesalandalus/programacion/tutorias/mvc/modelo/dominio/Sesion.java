@@ -60,7 +60,7 @@ public class Sesion {
 
 	public static Sesion getSesionFicticia(Tutoria tutoria, LocalDate fecha) {
 
-		return new Sesion(tutoria, fecha, LocalTime.of(19, 00), LocalTime.of(22, 00), 30);
+		return new Sesion(tutoria, fecha, LocalTime.of(16, 00), LocalTime.of(17, 00), 10);
 
 	}
 
