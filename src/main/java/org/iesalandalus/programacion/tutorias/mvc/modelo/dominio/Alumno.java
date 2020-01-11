@@ -4,7 +4,7 @@ public class Alumno {
 	private static final String ER_NOMBRE = "([a-zA-ZÁÉÍÓÚáéíóú]+)(\\s+([a-zA-ZÁÉÍÓÚáéíóú]+))+";
 	private static final String PREFIJO_EXPEDIENTE = "SP_";
 	private static final String ER_CORREO = "[(\\w\\.)+|(\\w)+]+@\\w+\\.\\w{2,3}";
-	private static int ultimoIdentificador = 0;
+	private static int ultimoIdentificador;
 	private String nombre, correo, expediente;
 
 	public Alumno(String nombre, String correo) {

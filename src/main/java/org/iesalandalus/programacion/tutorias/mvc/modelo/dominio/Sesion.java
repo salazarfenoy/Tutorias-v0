@@ -16,11 +16,13 @@ public class Sesion {
 	private Tutoria tutoria;
 
 	public Sesion(Tutoria tutoria, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, int minutosDuracion) {
+
 		setTutoria(tutoria);
 		setFecha(fecha);
 		setHoraInicio(horaInicio);
 		setHoraFin(horaFin);
 		setMinutosDuracion(minutosDuracion);
+		comprobarValidezSesion();
 	}
 
 	public Sesion(Sesion sesion) {
@@ -37,6 +39,22 @@ public class Sesion {
 	}
 
 	private void comprobarValidezSesion() {
+		if (horaInicio.isAfter(HORA_FIN_CLASES) || horaInicio.isBefore(HORA_COMIENZO_CLASES)
+				|| horaInicio.equals(HORA_FIN_CLASES)) {
+			throw new IllegalArgumentException("ERROR: La hora de inicio no es válida.");
+		}
+		if (horaFin.isBefore(HORA_COMIENZO_CLASES) || horaFin.isAfter(HORA_FIN_CLASES)) {
+			throw new IllegalArgumentException("ERROR: La hora de fin no es válida.");
+		}
+
+		if (horaFin.equals(horaInicio) || horaFin.isBefore(horaInicio)) {
+			throw new IllegalArgumentException("ERROR: Las hora para establecer la sesión no son válidas.");
+		}
+		int minutosDuracionTotal = (int) horaInicio.until(horaFin, ChronoUnit.MINUTES);
+		if (minutosDuracionTotal % minutosDuracion != 0) {
+			throw new IllegalArgumentException(
+					"ERROR: Los minutos de duración no es divisor de los minutos establecidos para toda la sesión.");
+		}
 
 	}
 
@@ -71,10 +89,6 @@ public class Sesion {
 		if (horaInicio == null) {
 			throw new NullPointerException("ERROR: La hora de inicio no puede ser nula.");
 		}
-		if (horaInicio.isAfter(HORA_FIN_CLASES) || horaInicio.isBefore(HORA_COMIENZO_CLASES)
-				|| horaInicio.equals(HORA_FIN_CLASES)) {
-			throw new IllegalArgumentException("ERROR: La hora de inicio no es válida.");
-		}
 
 		this.horaInicio = horaInicio;
 	}
@@ -89,14 +103,6 @@ public class Sesion {
 			throw new NullPointerException("ERROR: La hora de fin no puede ser nula.");
 		}
 
-		if (horaFin.isBefore(HORA_COMIENZO_CLASES) || horaFin.isAfter(HORA_FIN_CLASES)) {
-			throw new IllegalArgumentException("ERROR: La hora de fin no es válida.");
-		}
-
-		if (horaFin.equals(horaInicio) || horaFin.isBefore(horaInicio)) {
-			throw new IllegalArgumentException("ERROR: Las hora para establecer la sesión no son válidas.");
-		}
-
 		this.horaFin = horaFin;
 	}
 
@@ -105,15 +111,11 @@ public class Sesion {
 	}
 
 	private void setMinutosDuracion(int minutosDuracion) {
-		int minutosDuracionTotal = (int) horaInicio.until(horaFin, ChronoUnit.MINUTES);
 
 		if (minutosDuracion == 0) {
 			throw new IllegalArgumentException("ERROR: Los minutos de duración no son válidos.");
 		}
-		if (minutosDuracionTotal % minutosDuracion != 0) {
-			throw new IllegalArgumentException(
-					"ERROR: Los minutos de duración no es divisor de los minutos establecidos para toda la sesión.");
-		}
+
 		this.minutosDuracion = minutosDuracion;
 	}
 
@@ -126,7 +128,7 @@ public class Sesion {
 		if (tutoria == null) {
 			throw new NullPointerException("ERROR: La tutoría no puede ser nula.");
 		}
-		
+
 		this.tutoria = new Tutoria(tutoria);
 	}
 
