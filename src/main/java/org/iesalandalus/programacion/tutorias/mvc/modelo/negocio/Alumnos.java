@@ -43,6 +43,16 @@ public class Alumnos {
 
 	}
 
+	private Alumno[] copiaProfundaAlumnos() {
+		Alumno[] copiaAlumnos = new Alumno[coleccionAlumnos.length];
+		for (int i = 0; i < coleccionAlumnos.length && coleccionAlumnos[i] != null; i++) {
+			copiaAlumnos[i] = new Alumno(coleccionAlumnos[i]);
+		}
+
+		return copiaAlumnos;
+
+	}
+
 	public void insertar(Alumno alumno) throws OperationNotSupportedException {
 		if (alumno == null) {
 			throw new NullPointerException("ERROR: No se puede insertar un alumno nulo.");
@@ -68,11 +78,11 @@ public class Alumnos {
 		}
 		int indice = buscarIndice(alumno);
 		if (tamanoSuperado(indice)) {
-			return null;
+			alumno = null;
 		} else {
-			return new Alumno(alumno);
+			alumno = new Alumno(coleccionAlumnos[indice]);
 		}
-
+		return alumno;
 	}
 
 	private void desplazarUnaPosicionHaciaIzquierda(int indice) {
@@ -106,7 +116,7 @@ public class Alumnos {
 	}
 
 	public Alumno[] get() {
-		return coleccionAlumnos;
+		return copiaProfundaAlumnos();
 	}
 
 }

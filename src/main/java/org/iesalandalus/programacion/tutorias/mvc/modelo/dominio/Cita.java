@@ -31,27 +31,25 @@ public class Cita {
 	}
 
 	private void setHora(LocalTime hora) {
+
 		if (hora == null) {
 			throw new NullPointerException("ERROR: La hora no puede ser nula.");
 		}
-		if (hora.isBefore(sesion.getHoraInicio()) || hora.isAfter(sesion.getHoraFin())) {
+		if (hora.isBefore(sesion.getHoraInicio())
+				|| hora.isAfter(sesion.getHoraFin().minusMinutes(sesion.getMinutosDuracion()))) {
 			throw new IllegalArgumentException(
 					"ERROR: La hora debe estar comprendida entre la hora de inicio y fin de la sesión.");
 		}
-
-	if (hora.getMinute() % sesion.getMinutosDuracion() != 0) {
-
-		throw new IllegalArgumentException(
-				"ERROR: La hora debe comenzar en un múltiplo de los minutos de duración.");
-
-	}
-
-
+		if (((hora.toSecondOfDay() - sesion.getHoraInicio().toSecondOfDay()) / 60) % sesion.getMinutosDuracion() != 0) {
+			throw new IllegalArgumentException(
+					"ERROR: La hora debe comenzar en un múltiplo de los minutos de duración.");
+		}
 		this.hora = hora;
+
 	}
 
 	public Sesion getSesion() {
-		return sesion;
+		return new Sesion(sesion);
 	}
 
 	private void setSesion(Sesion sesion) {
@@ -63,7 +61,7 @@ public class Cita {
 	}
 
 	public Alumno getAlumno() {
-		return alumno;
+		return new Alumno(alumno);
 	}
 
 	private void setAlumno(Alumno alumno) {

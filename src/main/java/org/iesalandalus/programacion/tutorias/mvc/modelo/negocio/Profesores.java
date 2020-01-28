@@ -45,7 +45,7 @@ public class Profesores {
 
 	private Profesor[] copiaProfundaProfesores() {
 		Profesor[] copiaProfesores = new Profesor[coleccionProfesores.length];
-		for (int i = 0; i < coleccionProfesores.length && coleccionProfesores[i]!=null; i++) {
+		for (int i = 0; i < coleccionProfesores.length && coleccionProfesores[i] != null; i++) {
 			copiaProfesores[i] = new Profesor(coleccionProfesores[i]);
 		}
 
@@ -78,10 +78,12 @@ public class Profesores {
 		}
 		int indice = buscarIndice(profesor);
 		if (tamanoSuperado(indice)) {
-			return null;
+			profesor = null;
 		} else {
-			return new Profesor(profesor);
+			profesor = new Profesor(coleccionProfesores[indice]);
 		}
+
+		return profesor;
 
 	}
 

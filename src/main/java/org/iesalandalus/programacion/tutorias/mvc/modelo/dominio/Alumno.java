@@ -3,14 +3,13 @@ package org.iesalandalus.programacion.tutorias.mvc.modelo.dominio;
 public class Alumno {
 	private static final String ER_NOMBRE = "([a-zA-ZÁÉÍÓÚáéíóú]+)(\\s+([a-zA-ZÁÉÍÓÚáéíóú]+))+";
 	private static final String PREFIJO_EXPEDIENTE = "SP_";
-	private static final String ER_CORREO = "[(\\w\\.)+|(\\w)+]+@\\w+\\.\\w{2,3}";
+	private static final String ER_CORREO = "([\\w\\.]+[^.])@[\\w^\\_]+\\.[a-z]{2,3}";
 	private static int ultimoIdentificador;
 	private String nombre, correo, expediente;
 
 	public Alumno(String nombre, String correo) {
 		setNombre(nombre);
 		setCorreo(correo);
-		incrementaUltimoIdentificador();
 		setExpediente(expediente);
 
 	}
@@ -21,7 +20,7 @@ public class Alumno {
 		}
 		setNombre(alumno.nombre);
 		setCorreo(alumno.correo);
-		setExpediente(alumno.expediente);
+		this.expediente = alumno.expediente;
 	}
 
 	public static Alumno getAlumnoFicticio(String correo) {
@@ -82,6 +81,8 @@ public class Alumno {
 	}
 
 	private void setExpediente(String expediente) {
+
+		incrementaUltimoIdentificador();
 		StringBuilder expedienteAsignado = new StringBuilder(PREFIJO_EXPEDIENTE);
 		expedienteAsignado.append(getIniciales() + "_");
 		expedienteAsignado.append(ultimoIdentificador);

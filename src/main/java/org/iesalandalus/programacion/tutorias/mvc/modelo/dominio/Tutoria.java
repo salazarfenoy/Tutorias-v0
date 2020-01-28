@@ -34,7 +34,7 @@ public class Tutoria {
 	}
 
 	public Profesor getProfesor() {
-		return profesor;
+		return new Profesor(profesor);
 	}
 
 	private void setProfesor(Profesor profesor) {

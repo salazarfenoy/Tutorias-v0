@@ -6,9 +6,6 @@ import org.iesalandalus.programacion.tutorias.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.tutorias.mvc.modelo.dominio.Cita;
 import org.iesalandalus.programacion.tutorias.mvc.modelo.dominio.Sesion;
 
-
-
-
 public class Citas {
 	private int capacidad;
 	private int tamano;
@@ -49,12 +46,12 @@ public class Citas {
 
 	private Cita[] copiaProfundaCitas() {
 		Cita[] copiaCitas = new Cita[coleccionCitas.length];
-		for (int i = 0;i<coleccionCitas.length && coleccionCitas[i]!=null; i++) {
-		
+		for (int i = 0; i < coleccionCitas.length && coleccionCitas[i] != null; i++) {
+
 			copiaCitas[i] = new Cita(coleccionCitas[i]);
-			
+
 		}
-		
+
 		return copiaCitas;
 
 	}
@@ -84,10 +81,12 @@ public class Citas {
 		}
 		int indice = buscarIndice(cita);
 		if (tamanoSuperado(indice)) {
-			return null;
+			cita = null;
 		} else {
-			return new Cita(cita);
+			cita = new Cita(coleccionCitas[indice]);
 		}
+
+		return cita;
 
 	}
 
@@ -122,28 +121,28 @@ public class Citas {
 	}
 
 	public Cita[] get(Sesion sesion) {
-		if(sesion==null) {
+		if (sesion == null) {
 			throw new NullPointerException("ERROR: La sesión no puede ser nula.");
 		}
-		int j=0;
+		int j = 0;
 		Cita[] copiaCitasSesion = new Cita[tamano];
 		for (int i = 0; i < tamano; i++) {
 			if (coleccionCitas[i].getSesion().equals(sesion)) {
 				copiaCitasSesion[j] = new Cita(coleccionCitas[i]);
 				j++;
-				
+
 			}
 		}
-		
+
 		return copiaCitasSesion;
 
 	}
-	
+
 	public Cita[] get(Alumno alumno) {
-		if(alumno==null) {
+		if (alumno == null) {
 			throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
 		}
-		int j=0;
+		int j = 0;
 		Cita[] copiaCitasAlumno = new Cita[tamano];
 		for (int i = 0; i < tamano; i++) {
 			if (coleccionCitas[i].getAlumno().equals(alumno)) {
@@ -151,7 +150,7 @@ public class Citas {
 				j++;
 			}
 		}
-		
+
 		return copiaCitasAlumno;
 
 	}

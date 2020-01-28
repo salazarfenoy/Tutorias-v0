@@ -15,7 +15,7 @@ import org.iesalandalus.programacion.tutorias.mvc.modelo.negocio.Tutorias;
 
 public class Modelo {
 
-	private static final int CAPACIDAD = 10;
+	private static final int CAPACIDAD = 20;
 	private Alumnos alumnos;
 	private Profesores profesores;
 	private Tutorias tutorias;
@@ -30,51 +30,64 @@ public class Modelo {
 		sesiones = new Sesiones(CAPACIDAD);
 	}
 
-	public void insertar(Alumno alumno) {
+	public void insertar(Alumno alumno) throws OperationNotSupportedException {
 
-		try {
-			alumnos.insertar(alumno);
-		} catch (OperationNotSupportedException e) {
-
-			System.out.print(e);
-		}
+		alumnos.insertar(alumno);
 
 	}
 
-	public void insertar(Profesor profesor) {
-		try {
-			profesores.insertar(profesor);
-		} catch (OperationNotSupportedException e) {
+	public void insertar(Profesor profesor) throws OperationNotSupportedException {
 
-			System.out.print(e);
-		}
+		profesores.insertar(profesor);
+
 	}
 
-	public void insertar(Tutoria tutoria) {
-		try {
-			tutorias.insertar(tutoria);
-		} catch (OperationNotSupportedException e) {
+	public void insertar(Tutoria tutoria) throws OperationNotSupportedException {
 
-			System.out.print(e);
+		if (tutoria == null) {
+			throw new NullPointerException("ERROR: No se puede insertar una tutoría nula.");
 		}
+
+		Profesor profesor = profesores.buscar(tutoria.getProfesor());
+
+		if (profesor == null) {
+			throw new OperationNotSupportedException("ERROR: No existe el profesor de esta tutoría.");
+		}
+
+		tutorias.insertar(new Tutoria(profesor, tutoria.getNombre()));
+
 	}
 
-	public void insertar(Sesion sesion) {
-		try {
-			sesiones.insertar(sesion);
-		} catch (OperationNotSupportedException e) {
-
-			System.out.print(e);
+	public void insertar(Sesion sesion) throws OperationNotSupportedException {
+		if (sesion == null) {
+			throw new NullPointerException("ERROR: No se puede insertar una sesión nula.");
 		}
+
+		Tutoria tutoria = tutorias.buscar(sesion.getTutoria());
+		if (tutoria == null) {
+			throw new OperationNotSupportedException("ERROR: No se puede insertar una sesión con una tutoría nula.");
+		}
+		sesiones.insertar(new Sesion(tutoria, sesion.getFecha(), sesion.getHoraInicio(), sesion.getHoraFin(),
+				sesion.getMinutosDuracion()));
+
 	}
 
-	public void insertar(Cita cita) {
-		try {
-			citas.insertar(cita);
-		} catch (OperationNotSupportedException e) {
+	public void insertar(Cita cita) throws OperationNotSupportedException {
 
-			System.out.print(e);
+		if (cita == null) {
+			throw new NullPointerException("ERROR: No se puede insertar una cita nula.");
 		}
+		Sesion sesion = sesiones.buscar(cita.getSesion());
+		if (sesion == null) {
+			throw new OperationNotSupportedException("ERROR: No se puede insertar una cita con una sesión nula.");
+		}
+		Alumno alumno = alumnos.buscar(cita.getAlumno());
+
+		if (alumno == null) {
+			throw new OperationNotSupportedException("ERROR: No se puede insertar una cita con un alumno nulo.");
+		}
+		citas.insertar(new Cita(alumno, sesion, cita.getHora()));
+
 	}
 
 	public Alumno buscar(Alumno alumno) {
@@ -98,44 +111,32 @@ public class Modelo {
 		return citas.buscar(cita);
 	}
 
-	public void borrar(Alumno alumno) {
-		try {
-			alumnos.borrar(alumno);
-		} catch (OperationNotSupportedException e) {
-			System.out.print(e);
-		}
+	public void borrar(Alumno alumno) throws OperationNotSupportedException {
+		alumnos.borrar(alumno);
+
 	}
 
-	public void borrar(Profesor profesor) {
-		try {
-			profesores.borrar(profesor);
-		} catch (OperationNotSupportedException e) {
-			System.out.print(e);
-		}
+	public void borrar(Profesor profesor) throws OperationNotSupportedException {
+
+		profesores.borrar(profesor);
+
 	}
 
-	public void borrar(Tutoria tutoria) {
-		try {
-			tutorias.borrar(tutoria);
-		} catch (OperationNotSupportedException e) {
-			System.out.print(e);
-		}
+	public void borrar(Tutoria tutoria) throws OperationNotSupportedException {
+
+		tutorias.borrar(tutoria);
 	}
 
-	public void borrar(Sesion sesion) {
-		try {
-			sesiones.borrar(sesion);
-		} catch (OperationNotSupportedException e) {
-			System.out.print(e);
-		}
+	public void borrar(Sesion sesion) throws OperationNotSupportedException {
+
+		sesiones.borrar(sesion);
+
 	}
 
-	public void borrar(Cita cita) {
-		try {
-			citas.borrar(cita);
-		} catch (OperationNotSupportedException e) {
-			System.out.print(e);
-		}
+	public void borrar(Cita cita) throws OperationNotSupportedException {
+
+		citas.borrar(cita);
+
 	}
 
 	public Alumno[] getAlumnos() {

@@ -11,7 +11,8 @@ public class Sesion {
 	public static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 	public static final DateTimeFormatter FORMATO_HORA = DateTimeFormatter.ofPattern("HH:mm");
 	private LocalDate fecha;
-	private LocalTime horaInicio, horaFin;
+	private LocalTime horaInicio;
+	private LocalTime horaFin;
 	private int minutosDuracion;
 	private Tutoria tutoria;
 
@@ -60,7 +61,7 @@ public class Sesion {
 
 	public static Sesion getSesionFicticia(Tutoria tutoria, LocalDate fecha) {
 
-		return new Sesion(tutoria, fecha, LocalTime.of(16, 00), LocalTime.of(17, 00), 10);
+		return new Sesion(tutoria, fecha, HORA_COMIENZO_CLASES, HORA_FIN_CLASES, 1);
 
 	}
 
